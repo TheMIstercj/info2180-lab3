@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Exercise 2: Add X or O when clicked
         square.addEventListener("click", function () {
-            if (gameOver) {
+
+            // Exercise 6: Prevent changing occupied squares
+            if (board[index] !== "" || gameOver) {
                 return;
             }
 
