@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const squares = document.querySelectorAll("#board div");
     const status = document.getElementById("status");
+    const newGameButton = document.querySelector(".btn");
+    const originalMessage = status.textContent;
 
     let currentPlayer = "X";
     let board = ["", "", "", "", "", "", "", "", ""];
@@ -17,9 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
         [2, 4, 6]
     ];
 
+    // Exercise 1: Set up the board
     squares.forEach(function (square, index) {
         square.classList.add("square");
 
+        // Exercise 2: Add X or O when clicked
         square.addEventListener("click", function () {
             if (gameOver) {
                 return;
@@ -31,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
             square.classList.remove("X", "O");
             square.classList.add(currentPlayer);
 
+            // Exercise 4: Check for a winner
             if (checkWinner()) {
                 status.textContent =
                     "Congratulations! " + currentPlayer + " is the Winner!";
@@ -43,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
+        // Exercise 3: Mouse hover effect
         square.addEventListener("mouseover", function () {
             square.classList.add("hover");
         });
@@ -52,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Exercise 4: Check winning combinations
     function checkWinner() {
         for (let line of winningLines) {
             let a = line[0];
@@ -67,4 +74,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return false;
     }
+
+    // Exercise 5: Restart the game
+    newGameButton.addEventListener("click", function () {
+        board = ["", "", "", "", "", "", "", "", ""];
+        currentPlayer = "X";
+        gameOver = false;
+
+        squares.forEach(function (square) {
+            square.textContent = "";
+            square.classList.remove("X", "O", "hover");
+        });
+
+        status.textContent = originalMessage;
+        status.classList.remove("you-won");
+    });
 });
